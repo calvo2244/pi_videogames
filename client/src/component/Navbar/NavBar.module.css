@@ -1,0 +1,30 @@
+.container{
+    display:flow-root;
+    flex-direction: row;
+    justify-content: center;
+    background-color:  black;
+    border-radius: 0px;
+    border: 1px solid transparent;
+    height: max-content;
+    color: azure;
+} 
+.container hr{
+color: greenyellow;
+}
+.container{
+flex-wrap: wrap;
+    padding: 10px;
+    justify-content: center;
+}
+.contmenu{
+    display: flex ;
+    
+}
+.contmenu Link{
+    margin: 5px;
+    color: greenyellow;
+    background-color: greenyellow;
+}
+.contsearch{
+    align-items: end;
+}

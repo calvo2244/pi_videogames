@@ -21,13 +21,13 @@ require ('dotenv'). config();
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const {
-  PORT,HOST
-} = process.env;
+  PORT,HOST,
+} = process.env; 
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   console.log('Database connected, master');
   server.listen(PORT, () => {
-    console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
+    console.log(`%s listening at ${PORT} ==> http://${HOST}:${PORT}/`); // eslint-disable-line no-console
   });
 });
