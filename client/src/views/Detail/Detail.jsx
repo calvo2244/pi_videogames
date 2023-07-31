@@ -15,26 +15,27 @@ const Detail = () => {
     useEffect(() => {
         dispatch(getIdVideogame(id));
     }, [dispatch, id])
+
     console.log("detail ==> ", videogamesState);
     return (
         <div className={styled.containner}>
-            <h1>Estamos en detail</h1>
             <div className={styled.detail}>
                 <div className={styled.image}>
-                    <img src={videogamesState.imagen} alt={videogamesState.nombre}></img>
+                    <img src={videogamesState.image} alt={videogamesState.name}></img>
                 </div>
+                {/* // (id,name,description,platforms,image,released,rating,genres) */}
 
                 <div className={styled.texts}>
-                    <h1>{videogamesState.nombre}</h1>
+                    <h1>{videogamesState.name}</h1>
                     <h2 className={styled.id}>Id: {id}</h2>
-                    <h2>Plataformas:</h2>
-                    <p>{videogamesState.plataforma?.map((plataform)=>plataform.name)}</p>
-                    <h2>Descripción:</h2>
-                    <p> {videogamesState.descripcion}</p>
-                    <h2>Fecha de lanzamiento:</h2>
-                    <p>{videogamesState.fecha_de_lanzamiento}</p>
-                    <h2>Géneros:</h2>
-                    <p>{videogamesState.generos?.map((g) =>g.name)}</p>
+                    <h2>platforms:</h2>
+                    <p>{videogamesState.platforms}</p>
+                    <h2>description:</h2>
+                    <p> {videogamesState.description}</p>
+                    <h2>released:</h2>
+                    <p>{videogamesState.released}</p>
+                    <h2>Genres:</h2>
+                    <p>{videogamesState.genres}</p>
                     <h2>Rating:</h2>
                     <p> {videogamesState.rating}</p>
                 </div>

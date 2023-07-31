@@ -19,15 +19,15 @@ const Cards = () => {
             <div className={style.cards}>
 
                 {
-                    videogamesOriginState?.map((videogamesState, index) => {
-                        
+                    videogamesOriginState.map((game, index) => {
+                        const res = game;
                         return <Card
-                            key={videogamesState.id}
-                            id={videogamesState.id}
-                            name={videogamesState.name}
-                            image={videogamesState.background_image}
-                            genres={videogamesState.genres?.map((genre) =>{return (genre.name)})}
-                            rating={videogamesState.rating}
+                            key={index}
+                            id={res.id}
+                            name={res.name}
+                            image={res.image}
+                            genres={res.genres}
+                            rating={res.rating}
                         />;
                     })
                 }

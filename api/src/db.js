@@ -15,8 +15,8 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
 });
 // console.log(`logging=> ${sequelize.logging} || native=> ${sequelize.native}`)
 const basename = path.basename(__filename);
-console.log("basename ==> " + basename);// ==>db.js
-console.log("filename ==> " + __filename); //==> C:\Users\calvo\Desktop\Soy Henry\1 Bootcamp\PI\pi_videogames\api\src\db.js
+// console.log("basename ==> " + basename);// ==>db.js
+// console.log("filename ==> " + __filename); //==> C:\Users\calvo\Desktop\Soy Henry\1 Bootcamp\PI\pi_videogames\api\src\db.js
 
 const modelDefiners = [];
 

@@ -8,7 +8,7 @@ import axios from 'axios'
 
 export const getAllVideogames = () => {
     return async function (dispatch) {
-        const apidata = await axios.get("http://localhost:3001/videogames/");
+        const apidata = await axios.get("http://localhost:3001/videogames");
         const videogames = apidata.data;
         dispatch({
             type: GET_ALL_VIDEOGAMES,
@@ -29,7 +29,10 @@ export const getIdVideogame = (id) => {
 export const getNameVideogame = (id) => {
     return async function(dispatch){
         const apidata = await axios.get(``);
-        const videogame = apidata.data;
-        dispatch({type: GET_NAME_VIDEOGAME, payload:videogame});
+        const videogame = apidata.data.results;
+        dispatch({
+            type: GET_NAME_VIDEOGAME, 
+            payload:videogame
+        });
     };
 };

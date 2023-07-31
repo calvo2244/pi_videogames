@@ -1,6 +1,6 @@
 .search {
-    margin: 8px;
-    padding: 8px;
+    margin: 5px;
+    padding: 5px;
     background-color:rgb(40, 37, 37);
     border-radius: 10px;
     box-shadow: 0 1px 4px greenyellow;
@@ -11,30 +11,30 @@
     border-radius: 5px;
     padding: 5px 16px;
     margin: 2px;
-    margin-right: 8px;
     background-color: black;
     color: greenyellow;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
   }
   .search button:hover {
     border: 1px solid goldenrod;
     color: goldenrod;
     background-color: rgb(41, 36, 36);
   }
+
   .search input{
     margin: 2px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 11px;
     padding: 5px;
     background-color: black;
     color: greenyellow;
-    border: 1px solid greenyellow;;
+    width: 300px;
   }
   input::placeholder{
     color: goldenrod;
   }
   .search label{
     font-weight: bold;
-    font-size: 0.9em;
+    font-size: 12px;
   }

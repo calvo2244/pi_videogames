@@ -4,48 +4,46 @@ const { API_HOST, API_KEY } = process.env;
 
 console.log("cargando controller videogames");
 
-const getAllVideogames = async (req, res) => {//ok
-    // console.log("buscando videogames en la funcion getAllVideogames");
+const getAllVideogames = async (req, res) => {
     let resVideogamesFinal = [];
-    console.log(`":: GET_ALL ::" ,${API_HOST}games${API_KEY}`);
-
-    //Data API
+    // console.log(`":: GET_ALL ::" ,${API_HOST}games${API_KEY}`);
+    //Data DB
     try {
-        // console.log("estes es el objeto de respuesta de axios",resVideogames.data.results);
-        const resVideogamesBd = await Videogame.findAll({});
+        const resVideogamesBd = await Videogame.findAll();
         resVideogamesFinal = resVideogamesFinal.concat(resVideogamesBd);
-        // return res.status(200).json(resVideogamesFinal);
-    } catch (error) {
+        // console.log("::::::::::::: final ===>  ",resVideogamesFinal);
+    }
+    catch (error) {
         console.log("No se encontraron video Games en la BD");
         res.status(404).end(error.message);
     }
-
-    //Data BD
-    
+    //Data API    
     let apigames = [];
     try {
         const resVideogamesApi = await axios.get(`${API_HOST}games${API_KEY}`)
         const resApiGame = resVideogamesApi.data.results;
-
         let apigames = resApiGame.map((game) => {
             let newgame = {
                 id: game.id,
-                nombre: game.name,
-                descripcion: game.description,
-                plataformas: game.platforms.map((plat)=>plat.platform),
-                imagen: game.image,
-                fecha_de_lanzamiento: game.released,
+                name: game.name,
+                description: game.description,
+                platforms: game.platforms.map((plat) => plat.platform.name),
+                image: game.background_image,
+                released: game.released,
                 rating: game.rating,
+                genres: game.genres.map((genre) => genre.name)
             }
             return newgame;
         });
         resVideogamesFinal = resVideogamesFinal.concat(apigames)
         return res.status(200).json(resVideogamesFinal);
     }
+
     catch (error) {
         console.log("No se encontraron video Games en la API");
         res.status(404).end(error.message);
     }
+
 };
 
 const getIDVideogame = async function (req, res) {//ok
@@ -54,15 +52,15 @@ const getIDVideogame = async function (req, res) {//ok
         console.log((`":: GET_ID ::"  ${API_HOST}games/${idVideogame}${API_KEY}`));
         const resVideogame = await axios.get(`${API_HOST}games/${idVideogame}${API_KEY}`);
         //destructuring para extraer los datos necesarios 
-        const { name, description, platforms, background_image, updated, rating, genres } = resVideogame.data;
+        const { name, description, platforms, background_image, released, rating, genres } = resVideogame.data;
         const newvidgameId = {
-            nombre: name,
-            descripcion: description,
-            plataformas: platforms,
-            imagen: background_image,
-            fecha_de_lanzamiento: updated,
+            name: name,
+            description: description,
+            platforms: platforms.map((plat) => plat.platform.name),
+            image: background_image,
+            released: released,
             rating: rating,
-            generos: genres
+            genres: genres.map((gen) => gen.name)
         };
 
         res.status(200).json(newvidgameId);
@@ -91,17 +89,16 @@ const postCreateVideogame = async function (req, res) {
     // console.log("se realiza un: postCreateVideogame para ingresar datos a la tabla videogames en postgress");
     // console.log(Videogame);
     try {
-        // const { id, Nombre, Descripcion, Plataformas, Imagen, Fecha_de_lanzamiento, Rating } = req.body;
-        const { nombre, descripcion, plataformas, imagen, fecha_de_lanzamiento, rating } = req.body;
+        const { name, description, plataformms, image, released, rating } = req.body;
 
-        if (!nombre || !descripcion) {
+        if (!name || !description) {
             return res.status(500).json({ message: "el nombre y descripcion es obligatorio" })
         }
         const newvideo = {
             // id,
-            nombre,
-            descripcion,
-            // plataformas,
+            name,
+            description,
+            // plataforms,
             // imagen,
             // fecha_de_lanzamiento,
             // rating,

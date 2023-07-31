@@ -1,0 +1,71 @@
+form{
+    display: flex ;
+    justify-content: center;
+}
+.containner{
+    display: flexbox;   
+    /* flex-wrap:wrap; */
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: rgb(40, 37, 37);
+    box-shadow: 0 1px 4px greenyellow;
+    border-radius: 20px ;
+    max-width: max-content;
+    /* justify-content: center; */
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px;
+    padding: 20px;
+    color: greenyellow;
+    
+}
+input, textarea, select{
+  
+  border-radius: 5px;
+  font-size: 14px;
+  margin: 5px;
+  padding: 5px;
+  background-color: black;
+  border: 1px solid greenyellow;
+  align-items:baseline;    
+  color: goldenrod;
+  box-shadow: 0 1px 4px greenyellow;
+  }
+  label{
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px;
+    color: greenyellow;
+
+  }
+   button {
+    border: 1px solid greenyellow;
+    border-radius: 5px;
+    padding: 5px 16px;
+    margin: 10px;
+    margin-right: 8px;
+    background-color: black;
+    color: greenyellow;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .name, .image, .description, .platforms, .released, .rating {
+    background-color: black;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    /* border: 1px solid greenyellow; */
+    box-shadow: 0 1px 4px greenyellow;
+    width: max-content;
+    align-items: center;
+  }
+  .required:after {
+    content: '*';
+    margin-left: 3px;
+    color: red;
+    font-weight: bold;
+  }
+  .released input{
+
+  }

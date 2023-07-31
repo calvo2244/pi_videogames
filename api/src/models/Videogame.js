@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  // (id,Nombre,Descripcion,Plataformas,Imagen,Fecha_de_lanzamiento,Rating)
+  // (id,name,description,platforms,image,released,rating,genres)
   sequelize.define('videogame', {
     id: {
       type: DataTypes.INTEGER,
@@ -12,23 +12,23 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    nombre: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    descripcion: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    plataformas: {
+    platforms: {
       type: DataTypes.STRING,
       // allowNull: false,
     },
-    // imagen: {
+    // image: {
     //   type: DataTypes.STRING,
     //   // allowNull: false,
     // },
-    // fecha_de_lanzamiento: {
+    // released: {
     //   type: DataTypes.DATEONLY,
     //   // allowNull: false,
     // },
@@ -42,7 +42,6 @@ module.exports = (sequelize) => {
     {
       timestamps: false
     });
-    console.log("creado videogames en la BD");
 
 };
 

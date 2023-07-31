@@ -1,10 +1,4 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
-    color:aliceblue;
-}
+
 .container{
     background-color: transparent;
     justify-content: center;
@@ -15,9 +9,6 @@
     color: white;
     font-size: xx-large;
     font-family: 'Courier New', Courier, monospace;
-}
-h1{
-
 }
 
 .image{

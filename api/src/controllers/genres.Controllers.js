@@ -16,8 +16,7 @@ const getAllGenres = async (req, res) => {
 
 const postAllGendersBD = async (req, res) => {
     try {
-        const genres = await axios.get(`${API_HOST}genres${API_KEY}`); 
-
+        const genres = await axios.get(`${API_HOST}genres${API_KEY}`);
 
     } catch (error) {
         console.log("no se obtienen generos")

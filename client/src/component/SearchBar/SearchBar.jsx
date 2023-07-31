@@ -6,12 +6,12 @@ const SearchBar = ({ onSearch }) => {
         <div className={styled.search}>
             <input
                 type="search"
-                placeholder="Buscar por nombre..."
+                placeholder="Search by name..."
                 name="id"
             />
             <button
                 onClick={() => onSearch("buscar por nombre")}
-            >Buscar</button>
+            >Search</button>
         </div>
 
     )
