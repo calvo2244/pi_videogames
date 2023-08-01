@@ -7,6 +7,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content:space-around;
-    margin: 5% 5% 0% 5%;
+    margin-top: 10px;
 
 }

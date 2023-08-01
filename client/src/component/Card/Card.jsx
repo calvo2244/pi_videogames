@@ -1,5 +1,5 @@
 import styled from './Card.module.css'
-import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Card = (props) => {
     return (

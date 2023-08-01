@@ -1,15 +1,16 @@
+import { useDispatch } from 'react-redux';
 import IconoInicio from '../../image/image';
 import styled from './Landing.module.css'
-import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { createGenresBd } from '../../redux/action';
 const Landing = () => {
-    const submitHandlres = (event)=>{
-
-        return
-
-    }
-
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(createGenresBd())
+    }, [dispatch])
     return (
-        <form onSubmit={submitHandlres}>
+        <form>
             <div className={styled.container}>
                 <div className={styled.title}>
                     <h1> Video Games</h1>
@@ -17,7 +18,7 @@ const Landing = () => {
                 <img className={styled.image} src={IconoInicio.playcontroller3} alt=""></img>
                 <div >
                     <Link to={"/home"}>
-                    <button className={styled.button} >Ingresar</button>
+                        <button className={styled.button} >Ingresar</button>
                     </Link>
                 </div>
             </div>

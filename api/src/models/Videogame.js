@@ -22,20 +22,20 @@ module.exports = (sequelize) => {
     },
     platforms: {
       type: DataTypes.STRING,
-      // allowNull: false,
+      allowNull: false,
     },
-    // image: {
-    //   type: DataTypes.STRING,
-    //   // allowNull: false,
-    // },
-    // released: {
-    //   type: DataTypes.DATEONLY,
-    //   // allowNull: false,
-    // },
-    // rating: {
-    //   type: DataTypes.INTEGER,
-    //   // allowNull: false,
-    // }
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    released: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    rating: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    }
 
 
   },

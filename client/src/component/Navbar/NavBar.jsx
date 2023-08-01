@@ -20,7 +20,6 @@ const NavBar = () => {
             <div className={styled.contsearch}>
                 <SearchBar onSearch={onSearch}></SearchBar>
             </div>
-            <hr />
         </div>
     );
 }

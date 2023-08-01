@@ -1,74 +1,126 @@
-import React from "react";
 import styled from "./Form.module.css"
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { valiDateGame } from "../../utils/validation.js";
+import { createVideoGame } from "../../redux/action";
+
 
 
 const Form = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [dataForm, setDataFom] = useState({
+        name: "",
+        description: "",
+        platforms: "",
+        image: "",
+        released: "",
+        rating: ""
+    });
 
 
-    const handleSubmit =(event)=>{
+    //asignar datos a el estado por cada input
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value
+        setDataFom({ 
+            ...dataForm, 
+            [name]: value 
+        });
+    }
+
+    //accion del formulario por el button 
+    const handlerSubmit = (event) => {
         event.preventDefault();
 
+        if (valiDateGame(dataForm)) {
+            alert('You must fill the inputs correctly')
+        }
+        else {
+            dispatch(createVideoGame(dataForm))
+        }
+        setDataFom({
+            name: "",
+            description: "",
+            platforms: "",
+            image: "",
+            released: "",
+            rating: ""
+        })
 
-
+        console.log(event);
         navigate("/home");
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className={styled.containner }>
-                <div className={styled.name}>
-                    <label className={styled.required}>Name:</label>
-                    <input type="text"
-                        id="name"
-                        name="name"
-                    />
+        <>
+            <form onSubmit={handlerSubmit}>
+                <div className={styled.containner}>
+                    <div className={styled.name}>
+                        <label className={styled.required}>Name:</label>
+                        <input type="text"
+                            id="name"
+                            name="name"
+                            value={dataForm.name}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className={styled.released}>
+                        <label className={styled.required}>Released Date:</label>
+                        <input type="date"
+                            id="released"
+                            name="released"                            
+                            value={dataForm.released}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className={styled.rating}>
+                        <label className={styled.required}>Rating:</label>
+                        <input type="text"
+                            id="rating"
+                            name="rating"                            
+                            value={dataForm.rating}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className={styled.description}>
+                        <label className={styled.required}>Description:</label>
+                        <textarea type="text"
+                            id="description"
+                            name="description"                                                        
+                            value={dataForm.description}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className={styled.image}>
+                        <label className={styled.required}>Image:</label>
+                        <input type="text"
+                            id="image"
+                            name="image"
+                            value={dataForm.image}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className={styled.platforms}>
+                        <label className={styled.required}>PLatforms:</label>
+                        <select
+                            id="platforms"
+                            name="platforms"                            
+                            value={dataForm.platforms}
+                            onChange={handleChange}
+                        >
+                            <option value="ps4">PlayStation 4</option>
+                            <option value="xboxone">Xbox One</option>
+                            <option value="switch">Nintendo Switch</option>
+                            <option value="pc">PC</option>
+                        </select>
+                    </div>
+                    <button type="submit">SEND</button>
                 </div>
-                <div className={styled.image}>
-                    <label className={styled.required}>Image:</label>
-                    <input type="text"
-                        id="image"
-                        name="image"
-                    />
-                </div>
-                <div className={styled.description}>
-                    <label className={styled.required}>Description:</label>
-                    <textarea type="text"
-                        id="description"
-                        name="description"
-                    />
-                </div>
-                <div className={styled.platforms}>
-                    <label className={styled.required}>PLatforms:</label>
-                    <select
-                        id="platforms"
-                        name="platforms"
-                    >
-                        <option value="ps4">PlayStation 4</option>
-                        <option value="xboxone">Xbox One</option>
-                        <option value="switch">Nintendo Switch</option>
-                        <option value="pc">PC</option>
-                    </select>
-                </div>
-                <div className={styled.released}>
-                    <label>Released Date:</label>
-                    <input type="date"
-                        id="released"
-                        name="released"
-                    />
-                </div>
-                <div className={styled.rating}>
-                    <label>Rating:</label>
-                    <input type="text"
-                        id="rating"
-                        name="rating"
-                    />
-                </div>
-                <button type="submit">SEND</button>
-            </div>
 
-        </form>
+            </form>
+        </>
     );
 }
 export default Form;

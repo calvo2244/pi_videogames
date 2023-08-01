@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom/cjs/react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from './Detail.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -7,6 +7,7 @@ import { getIdVideogame } from '../../redux/action'
 const Detail = () => {
 
     const { id } = useParams(); //recibimos el id
+    console.log(useParams());
 
     const dispatch = useDispatch();
 

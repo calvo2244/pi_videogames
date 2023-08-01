@@ -15,7 +15,7 @@ const Cards = () => {
     // const viewvideogames = videogameState.slice(desde, hasta)
 
     return (
-        <div className={style.container}>
+        // <div className={style.container}>
             <div className={style.cards}>
 
                 {
@@ -34,7 +34,7 @@ const Cards = () => {
 
             </div>
 
-        </div >
+        // </div >
     )
 };
 

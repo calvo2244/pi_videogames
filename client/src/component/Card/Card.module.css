@@ -19,7 +19,7 @@ body {
     position: relative;
     width: 220px;
     height: 280px;
-    margin: 10px;    
+    margin: 10px;  
 }
 .container .front, .back{
     position: absolute;
@@ -55,7 +55,6 @@ body {
     transform: perspective(600px) rotateY(180deg);
     background-color: black;
     padding: 3px;
-    /* color: greenyellow; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

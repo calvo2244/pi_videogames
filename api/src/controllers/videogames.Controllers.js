@@ -26,7 +26,6 @@ const getAllVideogames = async (req, res) => {
             let newgame = {
                 id: game.id,
                 name: game.name,
-                description: game.description,
                 platforms: game.platforms.map((plat) => plat.platform.name),
                 image: game.background_image,
                 released: game.released,
@@ -35,7 +34,9 @@ const getAllVideogames = async (req, res) => {
             }
             return newgame;
         });
+        console.log(apigames);
         resVideogamesFinal = resVideogamesFinal.concat(apigames)
+        console.log(resVideogamesFinal);
         return res.status(200).json(resVideogamesFinal);
     }
 
@@ -49,7 +50,7 @@ const getAllVideogames = async (req, res) => {
 const getIDVideogame = async function (req, res) {//ok
     try {
         const { idVideogame } = req.params;
-        console.log((`":: GET_ID ::"  ${API_HOST}games/${idVideogame}${API_KEY}`));
+        // console.log((`":: GET_ID ::"  ${API_HOST}games/${idVideogame}${API_KEY}`));
         const resVideogame = await axios.get(`${API_HOST}games/${idVideogame}${API_KEY}`);
         //destructuring para extraer los datos necesarios 
         const { name, description, platforms, background_image, released, rating, genres } = resVideogame.data;
@@ -89,26 +90,25 @@ const postCreateVideogame = async function (req, res) {
     // console.log("se realiza un: postCreateVideogame para ingresar datos a la tabla videogames en postgress");
     // console.log(Videogame);
     try {
-        const { name, description, plataformms, image, released, rating } = req.body;
+        const { name, description, platforms, image, released, rating } = req.body;
 
-        if (!name || !description) {
+        if (!name || !description || !released || !rating || !image)  {
             return res.status(500).json({ message: "el nombre y descripcion es obligatorio" })
         }
         const newvideo = {
             // id,
             name,
             description,
-            // plataforms,
-            // imagen,
-            // fecha_de_lanzamiento,
-            // rating,
+            platforms,
+            image,
+            released,
+            rating,
         };
         console.log(":: POST ::", newvideo);
         const newVideogame = await Videogame.create(newvideo);
-        res.status(200).end("videogame creado correctamente", newVideogame);
+        res.status(200).end("videogame creado correctamente");
     } catch (error) {
-
-        res.status(402).end("post postCreateVideogame");
+        res.status(402).end("post postCreateVideogameerror al crear un videogame");
     }
 }
 module.exports = {

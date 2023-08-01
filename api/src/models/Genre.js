@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
             // type: DataTypes.UUID,
             // defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
-            autoIncrement: true
+            // autoIncrement: true
         },
         name:{
             type: DataTypes.STRING,
@@ -18,5 +18,4 @@ module.exports = (sequelize) => {
     {
         timestamps: false
     });
-    console.log("creado genre en la BD");
 } 

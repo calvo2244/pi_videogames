@@ -9,7 +9,7 @@ import playcontroller4 from './playcontroller4.png'
 import playcontroller5 from './playcontroller4.png'
 import playcontroller6 from './playcontroller4.png'
 
-export default {
+const image ={
     "fondo1":  fondo1,
     "fondo2":  fondo2,
     "fondo3":  fondo3,
@@ -22,3 +22,4 @@ export default {
     "playcontroller6": playcontroller6,
     
 }
+export default image;
