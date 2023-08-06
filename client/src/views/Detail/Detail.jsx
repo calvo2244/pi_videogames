@@ -6,39 +6,33 @@ import { getIdVideogame } from '../../redux/action'
 
 const Detail = () => {
 
-    const { id } = useParams(); //recibimos el id
-    console.log(useParams());
-
+    const { id } = useParams(); //recibimos el params id
     const dispatch = useDispatch();
-
-    const { videogamesState } = useSelector(state => state)
+    const { videogamesDetailState } = useSelector(state => state)
 
     useEffect(() => {
         dispatch(getIdVideogame(id));
     }, [dispatch, id])
-
-    console.log("detail ==> ", videogamesState);
     return (
         <div className={styled.containner}>
             <div className={styled.detail}>
                 <div className={styled.image}>
-                    <img src={videogamesState.image} alt={videogamesState.name}></img>
+                    <img src={videogamesDetailState.image} alt={videogamesDetailState.name}></img>
                 </div>
-                {/* // (id,name,description,platforms,image,released,rating,genres) */}
 
                 <div className={styled.texts}>
-                    <h1>{videogamesState.name}</h1>
+                    <h1>{videogamesDetailState.name}</h1>
                     <h2 className={styled.id}>Id: {id}</h2>
                     <h2>platforms:</h2>
-                    <p>{videogamesState.platforms}</p>
+                    <p>{videogamesDetailState.platforms}</p>
                     <h2>description:</h2>
-                    <p> {videogamesState.description}</p>
+                    <p> {videogamesDetailState.description}</p>
                     <h2>released:</h2>
-                    <p>{videogamesState.released}</p>
+                    <p>{videogamesDetailState.released}</p>
                     <h2>Genres:</h2>
-                    <p>{videogamesState.genres}</p>
+                    <p>{videogamesDetailState.genres}</p>
                     <h2>Rating:</h2>
-                    <p> {videogamesState.rating}</p>
+                    <p> {videogamesDetailState.rating}</p>
                 </div>
             </div>
         </div>

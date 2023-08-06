@@ -1,46 +1,67 @@
 import styled from "./Form.module.css"
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { valiDateGame } from "../../utils/validation.js";
-import { createVideoGame } from "../../redux/action";
+import { createVideoGame, getAllGenresBd } from "../../redux/action";
+import { Navigate } from "react-router-dom";
 
 
 
 const Form = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [dataForm, setDataFom] = useState({
+    const { genresState } = useSelector(gen => gen)
+
+    const [inputData, setInputData] = useState({
         name: "",
         description: "",
-        platforms: "",
         image: "",
+        platforms: "",
         released: "",
         rating: ""
     });
 
+    const [errors, setErrors] = useState({
+        name: "",
+        description: "",
+        image: "",
+        platforms: "",
+        released: "",
+        rating: ""
+    });
+
+    useEffect(() => {
+        dispatch(getAllGenresBd())
+    }, [dispatch])
+
 
     //asignar datos a el estado por cada input
     const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value
-        setDataFom({ 
-            ...dataForm, 
-            [name]: value 
+        setInputData({
+            ...inputData,
+            [event.target.name]: event.target.value,
         });
+        setErrors(valiDateGame({
+            ...inputData,
+            [event.target.name]: event.target.value,
+        }))
     }
 
     //accion del formulario por el button 
     const handlerSubmit = (event) => {
         event.preventDefault();
 
-        if (valiDateGame(dataForm)) {
-            alert('You must fill the inputs correctly')
+        const errorForm = Object.keys(inputData);
+        console.log(">>>>>>>>>>>", errorForm);
+
+        if (errorForm.length === 0) {
+            return alert('You must fill the inputs correctly')
         }
         else {
-            dispatch(createVideoGame(dataForm))
+            dispatch(createVideoGame(inputData))
         }
-        setDataFom({
+        setInputData({
             name: "",
             description: "",
             platforms: "",
@@ -49,10 +70,14 @@ const Form = () => {
             rating: ""
         })
 
-        console.log(event);
-        navigate("/home");
+        // console.log(event);
+        Navigate("/home");
     }
 
+    const handlerGenres = (event) => {
+        console.log(event.target.value);
+    }
+    console.log(genresState)
     return (
         <>
             <form onSubmit={handlerSubmit}>
@@ -62,58 +87,88 @@ const Form = () => {
                         <input type="text"
                             id="name"
                             name="name"
-                            value={dataForm.name}
+                            value={inputData.name}
                             onChange={handleChange}
                         />
+                        <span>{errors?.name && errors.name}</span>
                     </div>
                     <div className={styled.released}>
                         <label className={styled.required}>Released Date:</label>
                         <input type="date"
                             id="released"
-                            name="released"                            
-                            value={dataForm.released}
+                            name="released"
+                            value={inputData.released}
                             onChange={handleChange}
                         />
+                        <span>{errors?.released}</span>
                     </div>
                     <div className={styled.rating}>
                         <label className={styled.required}>Rating:</label>
                         <input type="text"
                             id="rating"
-                            name="rating"                            
-                            value={dataForm.rating}
+                            name="rating"
+                            value={inputData.rating}
                             onChange={handleChange}
                         />
+                        <span>{errors?.rating}</span>
                     </div>
                     <div className={styled.description}>
                         <label className={styled.required}>Description:</label>
                         <textarea type="text"
                             id="description"
-                            name="description"                                                        
-                            value={dataForm.description}
+                            name="description"
+                            value={inputData.description}
                             onChange={handleChange}
                         />
+                        <span>{errors?.description && errors.description}</span>
                     </div>
                     <div className={styled.image}>
                         <label className={styled.required}>Image:</label>
                         <input type="text"
                             id="image"
                             name="image"
-                            value={dataForm.image}
+                            value={inputData.image}
                             onChange={handleChange}
                         />
+                        <span>{errors?.image && errors.image}</span>
                     </div>
                     <div className={styled.platforms}>
                         <label className={styled.required}>PLatforms:</label>
                         <select
                             id="platforms"
-                            name="platforms"                            
-                            value={dataForm.platforms}
+                            name="platforms"
+                            defaultValue='ps4'
+                            value={inputData.platforms}
                             onChange={handleChange}
                         >
                             <option value="ps4">PlayStation 4</option>
                             <option value="xboxone">Xbox One</option>
                             <option value="switch">Nintendo Switch</option>
                             <option value="pc">PC</option>
+                        </select>
+                        <span>{errors?.platforms && errors.platforms}</span>
+                    </div>
+                    <div className={styled.selectGenres}>
+                        <label className={styled.required}>Genres:</label>
+                        <select
+                            name="genres"
+                            onChange={(event) => handlerGenres(event)}
+                            defaultValue='default'>
+
+                            <option value="default" disabled>Select Genres</option>
+                            {
+                                genresState.data.map((gen, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            id={gen.id}
+                                            value={gen.name}
+                                        >
+                                            {gen.name}
+                                        </option>
+                                    )
+                                })
+                            }
                         </select>
                     </div>
                     <button type="submit">SEND</button>

@@ -6,6 +6,7 @@ const {
     getNameVideogames,
     postCreateVideogame
 } = require("../controllers/videogames.Controllers.js")
+// const {getAllVideogamesAPI} = require ("../controllers/Api.controller.js")
 
 videogamesRouter.get("/videogames", getAllVideogames);
 videogamesRouter.get("/videogames/name", getNameVideogames);

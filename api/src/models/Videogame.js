@@ -6,11 +6,12 @@ module.exports = (sequelize) => {
   // (id,name,description,platforms,image,released,rating,genres)
   sequelize.define('videogame', {
     id: {
-      type: DataTypes.INTEGER,
-      // type: DataTypes.UUID,
-      // defaultValue: DataTypes.UUIDV4,
+      // type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
+      allowNull: false,
+      // autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -25,7 +26,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     released: {
@@ -36,6 +37,11 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     }
+    // creator: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // }
+    
 
 
   },

@@ -2,24 +2,29 @@ import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 import style from "./Cards.module.css";
 
+import Paginate from "../Paginate/Paginate";
+
 const Cards = () => {
 
-    const { videogamesOriginState } = useSelector((state) => state);
-    console.log("en cards useSelector ===>  ", videogamesOriginState);
+    const { videogamesHomeState, numPageState } = useSelector((state) => state);
 
-    // let desde = (nu0mPageState - 1) * 15;
-    // let hasta = numPageState * 15;
-    // let cantPages = Math.floor(videogameState.length / 15)
+    const cantCharPerPage = 15
+    let desde = (numPageState - 1) * cantCharPerPage; //0 
+    let hasta = numPageState * cantCharPerPage;       //15
 
-    // //slice realiza el corte 
-    // const viewvideogames = videogameState.slice(desde, hasta)
+    let cantPages = Math.floor(videogamesHomeState.length / 15)
+
+    //slice realiza el corte 
+    const viewVideoGames = videogamesHomeState.slice(desde, hasta)
 
     return (
-        // <div className={style.container}>
+        <div className={style.container}>
+            <div className={style.paginate}>
+                <Paginate numPage={numPageState} cantPage={cantPages} />
+            </div>
             <div className={style.cards}>
-
                 {
-                    videogamesOriginState.map((game, index) => {
+                    viewVideoGames.map((game, index) => {
                         const res = game;
                         return <Card
                             key={index}
@@ -34,7 +39,7 @@ const Cards = () => {
 
             </div>
 
-        // </div >
+        </div >
     )
 };
 

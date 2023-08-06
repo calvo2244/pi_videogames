@@ -1,7 +1,10 @@
-/* .container{
+.paginate{
+    display: flex;
+    align-content: center;
+    text-align: center;
+    align-items: center;
     justify-content: center;
-
-} */
+}
 
 .cards{
     display: flex;

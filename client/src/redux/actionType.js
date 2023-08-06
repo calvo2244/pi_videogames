@@ -1,7 +1,17 @@
 export const GET_ALL_VIDEOGAMES = "GET_ALL_VIDEOGAMES"
 export const GET_ID_VIDEOGAME = "GET_ID_VIDEOGAME"
-export const GET_NAME_VIDEOGAME = "GET_NAME_VIDEOGAME"
 export const POST_NEW_VIDEOGAME = "POST_NEW_VIDEOGAME"
+export const SEARCH_VIDEOGAME = "SEARCH_VIDEOGAME"
 
 export const POST_ALL_GENRES = "POST_ALL_GENRES"
+export const GET_ALL_GENRES = "GET_ALL_GENRES"
+
+export const PREV = "PREV"
+export const NEXT = "NEXT"
+
+export const FILTER_NAME = 'FILTER_NAME';
+export const FILTER_RATING = 'FILTER_RATING';
+export const FILTER_GENRE = 'FILTER_GENRE';
+export const FILTER_ORIGIN = 'FILTER_ORIGIN';
+export const FILTER_RESET = 'FILTER_RESET';
 

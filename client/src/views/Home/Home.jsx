@@ -1,22 +1,30 @@
 import Cards from "../../component/Cards/Cards";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllVideogames } from "../../redux/action";
 import styled from './Home.module.css'
+import { getAllVideogames, getAllGenresBd } from "../../redux/action";
+import { SideBar } from "../../component/SideBar/SideBar";
 
-const Home = ()=>{
-
+const Home = () => {
     //cuando se monta, que haga el dispatch
     // useEffect()  useDispatch()
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(getAllGenresBd())
+    }, [dispatch])
 
-    useEffect(()=>{
+
+    useEffect(() => {
         dispatch(getAllVideogames())
-    },[dispatch])
+    }, [dispatch])
+    
 
-    return(
+    console.log("Cargando Home");
+    return (
         <div className={styled.containner}>
-        <Cards />
+            <SideBar />
+            <Cards />
         </div>
     );
 }

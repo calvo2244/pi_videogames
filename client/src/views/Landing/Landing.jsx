@@ -5,10 +5,17 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { createGenresBd } from '../../redux/action';
 const Landing = () => {
+
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(createGenresBd())
-    }, [dispatch])
+
+
+    
+
+        useEffect(() => {
+            dispatch(createGenresBd())
+        }, [dispatch])
+
+
     return (
         <form>
             <div className={styled.container}>

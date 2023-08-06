@@ -1,7 +1,7 @@
 // import { Route, useLocation, Routes } from 'react-router-dom';
-import { Route, useLocation,  Routes } from 'react-router-dom';
+import { Route, useLocation, Routes } from 'react-router-dom';
 import './App.css';
-import { Detail, Form, Home, Landing } from './views/index'
+import { Detail, Form, Home, Landing, NotFound } from './views/index'
 import NavBar from './component/Navbar/NavBar';
 
 function App() {
@@ -11,13 +11,14 @@ function App() {
   return (
     <div className="App">
       {/* <Router> */}
-          {location.pathname !== '/' && <NavBar></NavBar>}
-        <Routes>
-          <Route  path="/" element={<Landing /> } ></Route>
-          <Route  path="/home" element={<Home />}></Route>
-          <Route  path="/detail/:id" element={<Detail />}></Route>
-          <Route  path="/create" element={<Form />}></Route>
-        </Routes>
+      {location.pathname !== '/' && <NavBar></NavBar>}
+      <Routes>
+        <Route path="/" element={<Landing />} ></Route>
+        <Route path="/home" element={<Home />}></Route>
+        <Route path="/detail/:id" element={<Detail />}></Route>
+        <Route path="/create" element={<Form />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
       {/* </Router> */}
     </div>
   );

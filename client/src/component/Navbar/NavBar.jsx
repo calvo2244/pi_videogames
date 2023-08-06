@@ -1,12 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "./NavBar.module.css";
 import SearchBar from "../SearchBar/SearchBar";
-
 const NavBar = () => {
-    // const {videogames,setVideogames} = useState([])
-    function onSearch(text){
-        window.alert(text);
-      }
 
     return (
 
@@ -15,10 +10,11 @@ const NavBar = () => {
                 <nav>
                     <Link to='/home'>Home</Link>
                     <Link to='/create'>Crear</Link>
+                    <Link to="/home">reset</Link >
                 </nav>
             </div>
             <div className={styled.contsearch}>
-                <SearchBar onSearch={onSearch}></SearchBar>
+                <SearchBar></SearchBar>
             </div>
         </div>
     );

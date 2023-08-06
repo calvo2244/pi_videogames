@@ -1,28 +1,46 @@
 const axios = require("axios");
 const { Videogame } = require('../db');
 const { API_HOST, API_KEY } = process.env;
+const { getAllVideogamesAPI, getAllVideogamesApiID } = require("./Api.controller")
+const { getAllVideogamesDB, getAllVideogamesBdId } = require("./Bd.controller")
 
 console.log("cargando controller videogames");
 
 const getAllVideogames = async (req, res) => {
-    let resVideogamesFinal = [];
-    // console.log(`":: GET_ALL ::" ,${API_HOST}games${API_KEY}`);
-    //Data DB
     try {
-        const resVideogamesBd = await Videogame.findAll();
-        resVideogamesFinal = resVideogamesFinal.concat(resVideogamesBd);
-        // console.log("::::::::::::: final ===>  ",resVideogamesFinal);
+        const resAllGamesApi = await getAllVideogamesAPI();
+        const resAllGamesBd = await getAllVideogamesDB();
+        const resAllGames = resAllGamesBd.concat(resAllGamesApi);
+        console.log({ msg: "succes: Get Videogames in API and DB" })
+        return res.status(200).json(resAllGames);
     }
     catch (error) {
-        console.log("No se encontraron video Games en la BD");
+        console.log({ msg: "error: Get Videogames in API and DB" })
         res.status(404).end(error.message);
     }
-    //Data API    
-    let apigames = [];
+};
+
+const getIDVideogame = async function (req, res) {
     try {
-        const resVideogamesApi = await axios.get(`${API_HOST}games${API_KEY}`)
-        const resApiGame = resVideogamesApi.data.results;
-        let apigames = resApiGame.map((game) => {
+        const { idVideogame } = req.params;
+
+        const resGamesApi = await getAllVideogamesApiID(idVideogame);
+        const resGamesBd = await getAllVideogamesBdId(idVideogame);
+        const newvidgameId = await resGamesApi.finAll({ include: resGamesApi });
+        console.log({ msg: "succes: Get Videogames for ID in API and DB" })
+        res.status(200).json(resGamesBd);
+    } catch (error) {
+        console.log({ msg: "error: Get Videogames For ID in API and DB" })
+        res.status(404).end(error.message);
+    }
+};
+
+const getNameVideogames = async function (req, res) {
+    const { name } = req.query;
+    try {
+        console.log("==============>", name);
+        const resVieogameApi = (await axios.get(`${API_HOST}games${API_KEY}&search=${name}`)).data.results
+        let apigames = resVieogameApi.map((game) => {
             let newgame = {
                 id: game.id,
                 name: game.name,
@@ -34,54 +52,11 @@ const getAllVideogames = async (req, res) => {
             }
             return newgame;
         });
-        console.log(apigames);
-        resVideogamesFinal = resVideogamesFinal.concat(apigames)
-        console.log(resVideogamesFinal);
-        return res.status(200).json(resVideogamesFinal);
-    }
-
-    catch (error) {
-        console.log("No se encontraron video Games en la API");
-        res.status(404).end(error.message);
-    }
-
-};
-
-const getIDVideogame = async function (req, res) {//ok
-    try {
-        const { idVideogame } = req.params;
-        // console.log((`":: GET_ID ::"  ${API_HOST}games/${idVideogame}${API_KEY}`));
-        const resVideogame = await axios.get(`${API_HOST}games/${idVideogame}${API_KEY}`);
-        //destructuring para extraer los datos necesarios 
-        const { name, description, platforms, background_image, released, rating, genres } = resVideogame.data;
-        const newvidgameId = {
-            name: name,
-            description: description,
-            platforms: platforms.map((plat) => plat.platform.name),
-            image: background_image,
-            released: released,
-            rating: rating,
-            genres: genres.map((gen) => gen.name)
-        };
-
-        res.status(200).json(newvidgameId);
+        // console.log(apigames);
+        res.status(200).json(apigames)
     } catch (error) {
         res.status(404).end(error.message);
     }
-};
-
-const getNameVideogames = async function (req, res) {
-    console.log("getVideogamesName");
-    // console.log("http://localhost:3001/videogames/name?name=4564"); 
-    const nombre = req.query.name;
-    try {
-        console.log((`":: GET_NAME ::" ${API_HOST}games${API_KEY}&search=${nombre}`));
-        console.log(nombre);
-        // const database = await user.findAll({where:{name:"paramettro a buscar "}})
-    } catch (error) {
-        res.status(404).end(error.message);
-    }
-    res.send("Esta ruta debe obtener los primeros 15 videojuegos que se encuentren con la palabra recibida por query.");
 };
 
 
@@ -92,7 +67,7 @@ const postCreateVideogame = async function (req, res) {
     try {
         const { name, description, platforms, image, released, rating } = req.body;
 
-        if (!name || !description || !released || !rating || !image)  {
+        if (!name || !description || !released || !rating || !image) {
             return res.status(500).json({ message: "el nombre y descripcion es obligatorio" })
         }
         const newvideo = {
