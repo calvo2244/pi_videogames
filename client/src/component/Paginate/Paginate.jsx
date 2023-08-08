@@ -6,7 +6,7 @@ import styled from "./Paginate.module.css";
 export default function Paginate({ numPage, cantPage }) {
 
     const dispatch = useDispatch();
-    console.log(numPage);
+    console.log("numero pagina",numPage);
     return (
         <div className={styled.container}>
             <div className={styled.paginate}>

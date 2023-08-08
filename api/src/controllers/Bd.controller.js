@@ -4,6 +4,7 @@ const getAllVideogamesDB = async () => {
     // Data DB
     try {
         const resVideogamesBd = await Videogame.findAll();
+        console.log({ msg: "succes: Get All Videogames in Bd" })
         return (resVideogamesBd);
     }
     catch (error) {
@@ -14,9 +15,8 @@ const getAllVideogamesDB = async () => {
 const getAllVideogamesBdId = async (params) => {
     // Data DB
     try {
-        const resVideogamesBd = await Videogame.findOne({
-            where:{id:params}
-        });
+        const resVideogamesBd = await Videogame.findByPk(params);
+        console.log({ msg: "succes: Get Videogames for ID in Bd" })
         return (resVideogamesBd);
     }
     catch (error) {

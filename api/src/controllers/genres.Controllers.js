@@ -34,11 +34,11 @@ const posAllGenres = async (req, res) => {
                 await Genre.create(datagenres[index]);
             }
             res.status(200).end("Genre creado correctamente")
-        }         
+        }  else       
             res.status(200).end("Genre ya Se encuentra en la DB ")        
 
     } catch (error) {
-        // console.log("no se obtienen generos")
+        console.log("no se obtienen generos")
         res.status(404).end(error.message)
     }
 }

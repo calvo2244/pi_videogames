@@ -1,23 +1,24 @@
 import styled from "./Form.module.css"
 import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { valiDateGame } from "../../utils/validation.js";
 import { createVideoGame, getAllGenresBd } from "../../redux/action";
-import { Navigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
+import Select from "react-select"
 
 
 
 const Form = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate()
     const dispatch = useDispatch();
-    const { genresState } = useSelector(gen => gen)
+    // const { genresState } = useSelector(gen => gen)
 
     const [inputData, setInputData] = useState({
         name: "",
         description: "",
         image: "",
-        platforms: "",
+        platforms: [],
         released: "",
         rating: ""
     });
@@ -26,10 +27,21 @@ const Form = () => {
         name: "",
         description: "",
         image: "",
-        platforms: "",
+        platforms: [],
         released: "",
         rating: ""
     });
+
+    const platformsSelect = [
+        { label: "PlayStation 5", value: "playStation5", name: "platforms" },
+        { label: "Xbox One", value: "xboxOne", name: "platforms" },
+        { label: "PlayStation 4", value: "playStation4", name: "platforms" },
+        { label: "Xbox Series S/X", value: "xboxSeries", name: "platforms" },
+        { label: "PC", value: "pc", name: "platforms" },
+        { label: "Nintendo Switch", value: "nintendoSwitch", name: "platforms" },
+        { label: "iOS", value: "ios", name: "platforms" },
+        { label: "Android", value: "android", name: "platforms" },
+    ]
 
     useEffect(() => {
         dispatch(getAllGenresBd())
@@ -48,38 +60,49 @@ const Form = () => {
         }))
     }
 
+    
     //accion del formulario por el button 
     const handlerSubmit = (event) => {
         event.preventDefault();
 
-        const errorForm = Object.keys(inputData);
-        console.log(">>>>>>>>>>>", errorForm);
-
-        if (errorForm.length === 0) {
-            return alert('You must fill the inputs correctly')
-        }
+        if(errors.platforms) return alert(errors.platforms)
+        if(errors.name|| errors.name === "") return alert(errors.name)
+        if(errors.released) return alert(errors.released)
+        if(errors.rating ) return alert(errors.rating)
+        if(errors.image ) return alert(errors.image)
+        if(errors.description) return alert(errors.description)
         else {
             dispatch(createVideoGame(inputData))
+            alert("VideoGame created succes")
         }
         setInputData({
             name: "",
             description: "",
-            platforms: "",
+            platforms: [],
             image: "",
             released: "",
             rating: ""
         })
-
-        // console.log(event);
-        Navigate("/home");
+        navigate('/home');
     }
 
-    const handlerGenres = (event) => {
-        console.log(event.target.value);
+    const handleChangeSelect = (event) => {
+        const pltformselem = event.map(ele => ele.value)
+        setInputData({
+            ...inputData,
+            platforms: pltformselem,
+        });
+        setErrors(valiDateGame({
+            ...inputData,
+            platforms: pltformselem,
+        }))
+        console.log("lo del Select ==>> ",pltformselem);
     }
-    console.log(genresState)
+    console.log("estado inputdata ==>> ",inputData)
+    console.log("estado errors ==>> ",errors)
+
     return (
-        <>
+        <div>
             <form onSubmit={handlerSubmit}>
                 <div className={styled.containner}>
                     <div className={styled.name}>
@@ -104,7 +127,7 @@ const Form = () => {
                     </div>
                     <div className={styled.rating}>
                         <label className={styled.required}>Rating:</label>
-                        <input type="text"
+                        <input type="number"
                             id="rating"
                             name="rating"
                             value={inputData.rating}
@@ -134,30 +157,27 @@ const Form = () => {
                     </div>
                     <div className={styled.platforms}>
                         <label className={styled.required}>PLatforms:</label>
-                        <select
-                            id="platforms"
+                        <Select
                             name="platforms"
-                            defaultValue='ps4'
-                            value={inputData.platforms}
-                            onChange={handleChange}
-                        >
-                            <option value="ps4">PlayStation 4</option>
-                            <option value="xboxone">Xbox One</option>
-                            <option value="switch">Nintendo Switch</option>
-                            <option value="pc">PC</option>
-                        </select>
+                            // defaultValue={{ label: "Select Plataform", value: "default" }}
+                            options={platformsSelect}
+                            onChange={handleChangeSelect}
+                            isMulti
+                        />
                         <span>{errors?.platforms && errors.platforms}</span>
                     </div>
-                    <div className={styled.selectGenres}>
+                    
+                    {/* <div className={styled.selectGenres}>
                         <label className={styled.required}>Genres:</label>
                         <select
                             name="genres"
                             onChange={(event) => handlerGenres(event)}
-                            defaultValue='default'>
+                            defaultValue='default'
+                            >
 
                             <option value="default" disabled>Select Genres</option>
                             {
-                                genresState.data.map((gen, index) => {
+                                genresState?.data.map((gen, index) => {
                                     return (
                                         <option
                                             key={index}
@@ -170,12 +190,12 @@ const Form = () => {
                                 })
                             }
                         </select>
-                    </div>
+                    </div> */}
                     <button type="submit">SEND</button>
                 </div>
 
             </form>
-        </>
+        </div>
     );
 }
 export default Form;

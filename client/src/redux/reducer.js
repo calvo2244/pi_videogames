@@ -35,7 +35,6 @@ export default function reducer(state = initialState, { type, payload }) {
         videogamesOriginState: payload,
         videogamesHomeState: payload,
         videogamesState: payload
-
       }
 
     case GET_ID_VIDEOGAME:
@@ -80,7 +79,6 @@ export default function reducer(state = initialState, { type, payload }) {
       if (payload === 'ascending') {
         sortByName = [...state.videogamesHomeState].sort((a, b) => a.name.localeCompare(b.name));
       }
-
       if (payload === 'descending') {
         sortByName = [...state.videogamesHomeState].sort((a, b) => b.name.localeCompare(a.name));
       }
@@ -105,26 +103,57 @@ export default function reducer(state = initialState, { type, payload }) {
       }
     case FILTER_GENRE:
       const stateData = [...state.videogamesHomeState]
-      alert(typeof(stateData));
-      console.log("filtergenre--   ",payload," :::::::::  ",stateData);
-      // const gamesGenres = payload === "all" ? stateData
-      const gamesGenres =  stateData.filter(game=>{
-        const gam=game.genres.name
-        console.log("<<<<<<<<",gam);
-        return gam
+      alert(typeof (stateData));
+      console.log("------filtergenre=> ", payload);
+      console.log(";;;;typeof=> ", typeof (state));
+      console.log("::::state=>  ", stateData);
 
+      let gamesGenres = stateData.filter((game) => {
+        let gamegenres = game.genres
+        let arraygenres2 = gamegenres && gamegenres.filter(gen => gen.name === "Action")
+        console.log(arraygenres2);
+        return game
       })
-      console.log(">>>>>>>>>",gamesGenres);
+
+      // // let arraygenres = gamegenres && gamegenres.map(gen => gen.name)
+      //   if (gen.name === payload) {
+      //     return gen;
+      //   }
+      // })
+      // console.log("*****array genres ", arraygenres2, " ****")
+
+
+      // return arraygenres2
+
+
+      // console.log("===========",typeof(game.genres))
+      // console.log("*****game",game," ****")
+      // return games
+
+
+      console.log(">>>>>>>>>", gamesGenres);
       return {
         ...state,
-        // filterGenreState: gamesGenres,
-        // videogamesHomeState: gamesGenres,
+        filterGenreState: gamesGenres,
+        videogamesHomeState: gamesGenres,
       }
+
     case FILTER_ORIGIN:
+      state.videogamesHomeState = [...state.videogamesOriginState]
+      const Datastate = [...state.videogamesHomeState]
+      let resultFiter = [];
+      console.log(Datastate);
+      if (payload === "api") {
+        resultFiter = Datastate.filter(game => game.origin === "false")
+      }
+      if (payload === "db") {
+        resultFiter = Datastate.filter(game => game.origin === "true")
+      }
+      console.log("final----", resultFiter);
       return {
         ...state,
-        filterOriginState: payload,
-        videogamesHomeState: payload,
+        filterOriginState: resultFiter,
+        videogamesHomeState: resultFiter,
       }
 
 
@@ -138,9 +167,9 @@ export default function reducer(state = initialState, { type, payload }) {
         videogamesHomeState: state.videogamesOriginState,
         filterRatingState: [],
         filterGenreState: [],
-        numPageState:1
+        numPageState: 1
       }
-    default:
-      return { ...state };
+
+    default: return { ...state };
   }
 }

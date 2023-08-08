@@ -18,16 +18,16 @@ const getAllVideogamesAPI = async () => {
                     image: game.background_image,
                     released: game.released,
                     rating: game.rating,
-                    genres: game.genres
+                    genres: game.genres,
+                    origin:"false"
                 })
             })
             numPage++
         }
-        console.log({ msg: "succes: Get Videogames in Api en getAllVideogamesAPI" })
-        // return res.status(200).json(apiGames)
+        console.log({ msg: "succes: Get Videogames in Api en Api/getAllVideogamesAPI" })
         return apiGames
     } catch (error) {
-        return console.log({ msg: "error: Get Videogames in Api en getAllVideogamesAPI" });
+        return console.log({ msg: "error: Get Videogames in Api en Api/getAllVideogamesAPI" });
     }
 }
 const getAllVideogamesApiID = async (params) => {
@@ -44,10 +44,11 @@ const getAllVideogamesApiID = async (params) => {
             rating: rating,
             genres: genres.map((gen) => gen.name)
         };
-        console.log({ msg: "succes: Get Videogames in Api en getAllVideogamesApiID" })
+        console.log({ msg: "succes: Get Videogames in Api en Api/getAllVideogamesApiID" })
         return (newvidgameId);
     } catch (error) {
-        return console.log({ msg: "error: Get Videogames in Api en getAllVideogamesApiID" });
+        console.log({ msg: "error: Get Videogames in Api en Api/getAllVideogamesApiID" });
+        return error.response.status 
     }
 };
 

@@ -12,8 +12,9 @@ const Cards = () => {
     let desde = (numPageState - 1) * cantCharPerPage; //0 
     let hasta = numPageState * cantCharPerPage;       //15
 
-    let cantPages = Math.floor(videogamesHomeState.length / 15)
-
+    let cantPages = Math.ceil(videogamesHomeState.length / cantCharPerPage)
+// console.log("cantidad VideoGames", videogamesHomeState.length);
+// console.log("cantidad paginas", cantPages);
     //slice realiza el corte 
     const viewVideoGames = videogamesHomeState.slice(desde, hasta)
 

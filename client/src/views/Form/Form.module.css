@@ -20,7 +20,7 @@ form{
     color: greenyellow;
     
 }
-input, textarea, select{
+input, textarea, Select{
   
   border-radius: 5px;
   font-size: 14px;
@@ -51,7 +51,7 @@ input, textarea, select{
     font-size: 14px;
   }
   .name, .image, .description, .platforms, .released, .rating {
-    display: flexbox;
+    display: flex;
     background-color: black;
     padding: 10px;
     margin: 10px;

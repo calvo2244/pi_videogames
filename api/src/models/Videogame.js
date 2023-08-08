@@ -22,8 +22,8 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     platforms: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.JSON,
+      // allowNull: false,
     },
     image: {
       type: DataTypes.TEXT,
@@ -36,13 +36,11 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.FLOAT,
       allowNull: false,
+    },
+    origin: {
+      type: DataTypes.STRING,
+      defaultValue: "true"
     }
-    // creator: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // }
-    
-
 
   },
     {

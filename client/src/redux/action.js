@@ -55,7 +55,7 @@ export const getNameVideogame = (name) => {
 
 export const createVideoGame = (form) => {
     return async function (dispatch) {
-        axios.post(`http://localhost:3001/videogames`, form)
+        await axios.post(`http://localhost:3001/videogames`, form)
         dispatch({
             type: POST_NEW_VIDEOGAME,
             payload: form,
@@ -81,14 +81,20 @@ export const getAllGenresBd = () => {
     }
 };
 
-export const searchVideogame = (nameINput) => {
+export const searchVideogame = (value) => {
     return async function (dispatch) {
         try {
-            console.log("::::::", nameINput);
-            // const searchVideogame = await axios.get(`http://localhost:3001/name/${name}`)
-            const searchVideogame = await axios.get(`http://localhost:3001/videogames/name?name=${nameINput}`)
+            // console.log("::::::", value);
+            if (value  === "") {
+                return alert(`debe ingresar datos al Search`)
+            }
+            const searchVideogame = await axios.get(`http://localhost:3001/videogames/name?name=${value}`)
             const searchData = searchVideogame.data;
             console.log(searchData);
+            if (searchData.length === 0) {
+                return alert(`Not found VideoGames ${value}`)
+            }
+           
             dispatch({
                 type: SEARCH_VIDEOGAME,
                 payload: searchData,

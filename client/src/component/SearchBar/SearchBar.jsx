@@ -9,14 +9,14 @@ const SearchBar = () => {;
 
     const handlerSearch = () => {
         // onSearch(nameInput)
-        console.log(inputState);
+        // console.log(inputState);
         dispatch(searchVideogame(inputState))
         setInputState("");
     }
 
     const handlechange = (event) => {
         setInputState(event.target.value)
-        console.log(event.target.value);
+        // console.log(event.target.value);
     }
 
     return (

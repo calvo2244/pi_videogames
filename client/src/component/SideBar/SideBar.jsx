@@ -2,7 +2,7 @@ import React from "react"
 import styled from "./SideBar.module.css"
 import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { filterByName, filterByRating, filterReset, filterByGenre } from "../../redux/action";
+import { filterByName, filterByRating, filterReset, filterByGenre, filterByOrigin } from "../../redux/action";
 
 
 export const SideBar = () => {
@@ -28,8 +28,6 @@ export const SideBar = () => {
             ...select,
             [event.target.name]: event.target.value
         }));
-        
-        console.log("***consulta del select.value   ", select);
 
         if (event.target.name === 'name') {
             dispatch(filterByName(event.target.value))
@@ -39,6 +37,9 @@ export const SideBar = () => {
         }
         if (event.target.name === 'genre') {
             dispatch(filterByGenre(event.target.value))
+        }
+        if (event.target.name === 'origin') {
+            dispatch(filterByOrigin(event.target.value))
         }
     }
 
@@ -86,13 +87,13 @@ export const SideBar = () => {
 
             <select
                 name='origin'
-                // value={filters.origin} 
-                // onChange={handleChange}
+                value={select.origin} 
+                onChange={handleChange}
                 defaultValue='default'
             >
                 <option disabled value="default">Filter Origin</option>
                 <option value="api">Api</option>
-                <option value="Bd">Bd</option>
+                <option value="db">Bd</option>
             </select>
 
             <button onClick={handleResetFilters}>Reset</button>
