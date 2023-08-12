@@ -20,7 +20,7 @@ form{
     color: greenyellow;
     
 }
-input, textarea, Select{
+input, textarea, select{
   
   border-radius: 5px;
   font-size: 14px;
@@ -67,6 +67,21 @@ input, textarea, Select{
     color: red;
     font-weight: bold;
   }
-  .released input{
 
+  .selectReact{
+    &__menu {
+      margin: 0.125rem auto;
+      
+      border: 1px solid greenyellow;
+    }
+    &__option {
+      background-color: black;
+    }
+    &__group {
+      padding: 0;
+    }
+  
+    &__menu-portal {
+      border: 1px solid darkblue;
+    }
   }

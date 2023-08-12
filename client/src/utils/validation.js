@@ -14,6 +14,9 @@ export const valiDateGame = (errors) => {
   if (!errors.platforms || errors.platforms.length === 0)
     errorValidation.platforms = "Debe Elegir al menos una plataforma";
 
+  if (!errors.genres || errors.genres.length === 0)
+    errorValidation.genres = "Debe Elegir al menos un Genero";
+
   if (!errors.released || errors.released === "")
     errorValidation.released = "Debe Ingresar fecha de creacion";
 

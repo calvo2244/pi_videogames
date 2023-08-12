@@ -102,36 +102,20 @@ export default function reducer(state = initialState, { type, payload }) {
         videogamesHomeState: sortByRating
       }
     case FILTER_GENRE:
-      const stateData = [...state.videogamesHomeState]
-      alert(typeof (stateData));
-      console.log("------filtergenre=> ", payload);
-      console.log(";;;;typeof=> ", typeof (state));
-      console.log("::::state=>  ", stateData);
 
-      let gamesGenres = stateData.filter((game) => {
-        let gamegenres = game.genres
-        let arraygenres2 = gamegenres && gamegenres.filter(gen => gen.name === "Action")
-        console.log(arraygenres2);
-        return game
-      })
+      const stateData = [...state.videogamesOriginState]
+      // alert(typeof (stateData));
+      // console.log("------filtergenre=> ", payload);
+      // console.log(";;;;typeof=> ", typeof (state));
+      // console.log("::::state=>  ", stateData);
 
-      // // let arraygenres = gamegenres && gamegenres.map(gen => gen.name)
-      //   if (gen.name === payload) {
-      //     return gen;
-      //   }
-      // })
-      // console.log("*****array genres ", arraygenres2, " ****")
-
-
-      // return arraygenres2
-
-
-      // console.log("===========",typeof(game.genres))
-      // console.log("*****game",game," ****")
-      // return games
-
-
-      console.log(">>>>>>>>>", gamesGenres);
+      var gamesGenres = stateData && stateData.filter((game) => {
+        let compare = game.genres && game.genres.map((genre) => genre.name);
+        if (compare.includes(payload)) {
+          return game;
+        }
+      });
+      // console.log(">>>>>>>>>", gamesGenres);
       return {
         ...state,
         filterGenreState: gamesGenres,
@@ -142,7 +126,7 @@ export default function reducer(state = initialState, { type, payload }) {
       state.videogamesHomeState = [...state.videogamesOriginState]
       const Datastate = [...state.videogamesHomeState]
       let resultFiter = [];
-      console.log(Datastate);
+      // console.log(Datastate);
       if (payload === "api") {
         resultFiter = Datastate.filter(game => game.origin === "false")
       }

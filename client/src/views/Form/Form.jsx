@@ -1,10 +1,10 @@
 import styled from "./Form.module.css"
 import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { valiDateGame } from "../../utils/validation.js";
 import { createVideoGame, getAllGenresBd } from "../../redux/action";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select"
 
 
@@ -12,7 +12,7 @@ import Select from "react-select"
 const Form = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    // const { genresState } = useSelector(gen => gen)
+    const { genresState } = useSelector(gen => gen)
 
     const [inputData, setInputData] = useState({
         name: "",
@@ -20,7 +20,8 @@ const Form = () => {
         image: "",
         platforms: [],
         released: "",
-        rating: ""
+        rating: "",
+        genres: []
     });
 
     const [errors, setErrors] = useState({
@@ -29,7 +30,8 @@ const Form = () => {
         image: "",
         platforms: [],
         released: "",
-        rating: ""
+        rating: "",
+        genres: []
     });
 
     const platformsSelect = [
@@ -47,6 +49,13 @@ const Form = () => {
         dispatch(getAllGenresBd())
     }, [dispatch])
 
+    const optionGenre = genresState.data.map((genre) => ({
+        value: genre.name,
+        label: genre.name,
+        name: "genre"
+    }))
+    // console.log("genresState   ", optionGenre);
+
 
     //asignar datos a el estado por cada input
     const handleChange = (event) => {
@@ -60,17 +69,18 @@ const Form = () => {
         }))
     }
 
-    
+
     //accion del formulario por el button 
     const handlerSubmit = (event) => {
         event.preventDefault();
 
-        if(errors.platforms) return alert(errors.platforms)
-        if(errors.name|| errors.name === "") return alert(errors.name)
-        if(errors.released) return alert(errors.released)
-        if(errors.rating ) return alert(errors.rating)
-        if(errors.image ) return alert(errors.image)
-        if(errors.description) return alert(errors.description)
+        if (errors.platforms) return alert(errors.platforms)
+        if (errors.name || errors.name === "") return alert(errors.name)
+        if (errors.released) return alert(errors.released)
+        if (errors.rating) return alert(errors.rating)
+        if (errors.image) return alert(errors.image)
+        if (errors.description) return alert(errors.description)
+        if (errors.genres) return alert(errors.genres)
         else {
             dispatch(createVideoGame(inputData))
             alert("VideoGame created succes")
@@ -81,12 +91,13 @@ const Form = () => {
             platforms: [],
             image: "",
             released: "",
-            rating: ""
+            rating: "",
+            genre: []
         })
         navigate('/home');
     }
 
-    const handleChangeSelect = (event) => {
+    const handleChangePLatforms = (event) => {
         const pltformselem = event.map(ele => ele.value)
         setInputData({
             ...inputData,
@@ -96,10 +107,24 @@ const Form = () => {
             ...inputData,
             platforms: pltformselem,
         }))
-        console.log("lo del Select ==>> ",pltformselem);
+        console.log("lo del Select ==>> ", pltformselem);
     }
-    console.log("estado inputdata ==>> ",inputData)
-    console.log("estado errors ==>> ",errors)
+    const handleChangeGenre = (event) => {
+        const genreelem = event.map(ele => ele.value)
+        setInputData({
+            ...inputData,
+            genres: genreelem,
+        });
+        setErrors(valiDateGame({
+            ...inputData,
+            genres: genreelem,
+        }))
+        // console.log("lo del Select ==>> ", genreelem);
+    }
+
+
+    // console.log("estado inputdata ==>> ", inputData)
+    // console.log("estado errors ==>> ", errors)
 
     return (
         <div>
@@ -161,36 +186,25 @@ const Form = () => {
                             name="platforms"
                             // defaultValue={{ label: "Select Plataform", value: "default" }}
                             options={platformsSelect}
-                            onChange={handleChangeSelect}
+                            onChange={handleChangePLatforms}
                             isMulti
                         />
                         <span>{errors?.platforms && errors.platforms}</span>
                     </div>
-                    
-                    {/* <div className={styled.selectGenres}>
-                        <label className={styled.required}>Genres:</label>
-                        <select
-                            name="genres"
-                            onChange={(event) => handlerGenres(event)}
-                            defaultValue='default'
-                            >
 
-                            <option value="default" disabled>Select Genres</option>
-                            {
-                                genresState?.data.map((gen, index) => {
-                                    return (
-                                        <option
-                                            key={index}
-                                            id={gen.id}
-                                            value={gen.name}
-                                        >
-                                            {gen.name}
-                                        </option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div> */}
+                    <div className={styled.platforms}>
+                        <label className={styled.required}>Genres:</label>
+                        <Select
+                            // style={styled.selectReact}
+                            className={styled.selectReact}
+                            name="genre"
+                            // defaultValue={{ label: "Select Plataform", value: "default" }}
+                            options={optionGenre}
+                            onChange={handleChangeGenre}
+                            isMulti
+                        />
+                        <span>{errors?.genres && errors.genres}</span>
+                    </div>
                     <button type="submit">SEND</button>
                 </div>
 

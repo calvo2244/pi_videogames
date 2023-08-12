@@ -1,9 +1,16 @@
-const { Videogame } = require('../db');
+const { Videogame, Genre } = require('../db');
 
 const getAllVideogamesDB = async () => {
     // Data DB
     try {
-        const resVideogamesBd = await Videogame.findAll();
+        const resVideogamesBd = await Videogame.findAll({
+            include: [{
+                model: Genre,
+                attributes: ['id', 'name'],
+                through: { attributes: [] }
+            }]
+        })
+
         console.log({ msg: "succes: Get All Videogames in Bd" })
         return (resVideogamesBd);
     }
@@ -15,9 +22,28 @@ const getAllVideogamesDB = async () => {
 const getAllVideogamesBdId = async (params) => {
     // Data DB
     try {
-        const resVideogamesBd = await Videogame.findByPk(params);
+        const resVideogamesBd = await Videogame.findByPk(params, 
+            {
+            include: [{
+                model: Genre,
+                attributes: ['id', 'name'],
+                through: { attributes: [] }
+            }]
+        }
+        )
+        console.log(resVideogamesBd);
+        const videogamesBdforID = {
+            id: resVideogamesBd.id,
+            name: resVideogamesBd.name,
+            description: resVideogamesBd.description,
+            platforms: resVideogamesBd.platforms,
+            image: resVideogamesBd.image,
+            released: resVideogamesBd.released,
+            rating: resVideogamesBd.rating,
+            genres: resVideogamesBd.genres,
+        }
         console.log({ msg: "succes: Get Videogames for ID in Bd" })
-        return (resVideogamesBd);
+        return (videogamesBdforID);
     }
     catch (error) {
         console.log("No se encontraron video Games en la BD");

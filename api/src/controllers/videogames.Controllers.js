@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { Videogame } = require('../db');
+const { Videogame, Genre } = require('../db');
 const { API_HOST, API_KEY } = process.env;
 const { getAllVideogamesAPI, getAllVideogamesApiID } = require("./Api.controller")
 const { getAllVideogamesDB, getAllVideogamesBdId } = require("./Bd.controller")
@@ -74,7 +74,7 @@ const postCreateVideogame = async function (req, res) {
     // console.log("se realiza un: postCreateVideogame para ingresar datos a la tabla videogames en postgress");
     // console.log(Videogame);
     try {
-        const { name, description, platforms, image, released, rating } = req.body;
+        const { name, description, platforms, image, released, rating, genres } = req.body;
 
         if (!name || !description || !released || !rating || !image) {
             return res.status(500).json({ message: "Faltan campos obligatorio" })
@@ -88,8 +88,32 @@ const postCreateVideogame = async function (req, res) {
             rating,
 
         };
-        console.log(":: POST ::", newvideo);
+        // crea los videogames
         const newVideogame = await Videogame.create(newvideo);
+        // buscamso todos los Genres
+        const addGenres = await Genre.findAll({
+            where: {
+                name: genres
+            }
+        })
+        // se realiza la relacion 
+        await newVideogame.addGenre(addGenres)
+        // encuentro en la tabla el genero correspondiente al game
+
+        const gameRelation = await Videogame.findOne({
+            where: {
+                id: newVideogame.id,
+            },
+            include: [{
+                model: Genre,
+                attributes: ['name'],
+                through: { attributes: [] }
+            }]
+        })
+
+
+        // console.log(":: POST ::", newvideo);
+        // const newVideogame = await Videogame.create(newvideo);
         res.status(200).end("videogame creado correctamente");
     } catch (error) {
         res.status(402).json(error.message);

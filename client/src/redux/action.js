@@ -74,11 +74,13 @@ export const createGenresBd = () => {
 export const getAllGenresBd = () => {
     return async function (dispatch) {
         const getAllGenresBd = await axios.get('http://localhost:3001/genres')
+        console.log("estamos probando aqui", getAllGenresBd);
         dispatch({
             type: GET_ALL_GENRES,
             payload: getAllGenresBd,
         })
     }
+
 };
 
 export const searchVideogame = (value) => {

@@ -13,6 +13,7 @@ const Detail = () => {
     useEffect(() => {
         dispatch(getIdVideogame(id));
     }, [dispatch, id])
+    console.log(videogamesDetailState);
     return (
         <div className={styled.containner}>
             <div className={styled.detail}>
