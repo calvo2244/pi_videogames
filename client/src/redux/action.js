@@ -18,7 +18,7 @@ import axios from 'axios'
 
 export const getAllVideogames = () => {
     return async function (dispatch) {
-        const apidata = await axios.get("http://localhost:3001/videogames");
+        const apidata = await axios.get("/videogames");
         const videogames = apidata.data;
         dispatch({
             type: GET_ALL_VIDEOGAMES,
@@ -30,7 +30,7 @@ export const getAllVideogames = () => {
 export const getIdVideogame = (id) => {
     return async function (dispatch) {
         try {
-            const apidata = await axios.get(`http://localhost:3001/videogames/${id}`);
+            const apidata = await axios.get(`/videogames/${id}`);
             const videogame = apidata.data;
             dispatch({
                 type: GET_ID_VIDEOGAME,
@@ -55,7 +55,7 @@ export const getNameVideogame = (name) => {
 
 export const createVideoGame = (form) => {
     return async function (dispatch) {
-        await axios.post(`http://localhost:3001/videogames`, form)
+        await axios.post(`/videogames`, form)
         dispatch({
             type: POST_NEW_VIDEOGAME,
             payload: form,
@@ -65,7 +65,7 @@ export const createVideoGame = (form) => {
 
 export const createGenresBd = () => {
     return async function (dispatch) {
-        await axios.post('http://localhost:3001/genres')
+        await axios.post('/genres')
         dispatch({
             type: POST_ALL_GENRES,
         })
@@ -73,7 +73,7 @@ export const createGenresBd = () => {
 };
 export const getAllGenresBd = () => {
     return async function (dispatch) {
-        const getAllGenresBd = await axios.get('http://localhost:3001/genres')
+        const getAllGenresBd = await axios.get('/genres')
         console.log("estamos probando aqui", getAllGenresBd);
         dispatch({
             type: GET_ALL_GENRES,
@@ -90,7 +90,7 @@ export const searchVideogame = (value) => {
             if (value  === "") {
                 return alert(`debe ingresar datos al Search`)
             }
-            const searchVideogame = await axios.get(`http://localhost:3001/videogames/name?name=${value}`)
+            const searchVideogame = await axios.get(`/videogames/name?name=${value}`)
             const searchData = searchVideogame.data;
             console.log(searchData);
             if (searchData.length === 0) {

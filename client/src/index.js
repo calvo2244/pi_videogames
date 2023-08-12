@@ -6,6 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'; //para conectar redux con la pp
 import store from './redux/store';
+import axios from 'axios';
+
+
+// axios.defaults.baseURL= "http://localhost:3001"
+axios.defaults.baseURL= "pivideogames-production-6c0a.up.railway.app"
+
+
 
 ReactDOM.render(
   <Provider store={store}>
