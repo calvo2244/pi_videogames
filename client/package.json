@@ -20,10 +20,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": " react-scripts --openssl-legacy-provider start",
+    "develop": "concurrently \"react-scripts start\" \" nodemon ./src/services/server.js\"",
+    "start": "concurrently \"react-scripts start\" \" node ./src/services/server.js\"",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+    "seeds": "node ./src/index.js"
   },
   "eslintConfig": {
     "extends": [
