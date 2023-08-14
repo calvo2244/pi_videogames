@@ -26,13 +26,13 @@ const getIDVideogame = async function (req, res) {
 
         if (idVideogame.length > 16) {
             const resGamesBd = await getAllVideogamesBdId(idVideogame);
-            console.log("::::::::", Object.keys(resGamesBd).length);
+            // console.log("::::::::", Object.keys(resGamesBd).length);
             console.log({ msg: "succes: Get Videogames for ID /db" })
             return res.status(200).json(resGamesBd)
         }
         else {
             const resGamesApi = await getAllVideogamesApiID(idVideogame);
-            console.log("::::::::", Object.keys(resGamesApi).length);
+            // console.log("::::::::", Object.keys(resGamesApi).length);
             console.log({ msg: "succes: Get Videogames for ID /db" })
             return res.status(200).json(resGamesApi)
         }

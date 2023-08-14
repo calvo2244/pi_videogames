@@ -31,7 +31,7 @@ const getAllVideogamesBdId = async (params) => {
             }]
         }
         )
-        console.log(resVideogamesBd);
+        // console.log(resVideogamesBd);
         const videogamesBdforID = {
             id: resVideogamesBd.id,
             name: resVideogamesBd.name,
@@ -40,7 +40,7 @@ const getAllVideogamesBdId = async (params) => {
             image: resVideogamesBd.image,
             released: resVideogamesBd.released,
             rating: resVideogamesBd.rating,
-            genres: resVideogamesBd.genres,
+            genres: resVideogamesBd.genres.map((gen)=>gen.name),
         }
         console.log({ msg: "succes: Get Videogames for ID in Bd" })
         return (videogamesBdforID);

@@ -6,8 +6,8 @@ import playcontroller1 from './playcontroller.jpg'
 import playcontroller2 from './playcontroller2.jpg'
 import playcontroller3 from './playcontroller3.png'
 import playcontroller4 from './playcontroller4.png'
-import playcontroller5 from './playcontroller4.png'
-import playcontroller6 from './playcontroller4.png'
+import playcontroller5 from './playcontroller5.png'
+import playcontroller6 from './playcontroller6.png'
 
 const image ={
     "fondo1":  fondo1,

@@ -1,20 +1,34 @@
 
 .container{
+    display: flex ;
     background-color: transparent;
     justify-content: center;
-
+    align-items: center;
+    align-content: center;    
+    height:600px;
+}
+.column{
 }
 
+.imagei{
+    /* display:flex; */
+    /* border: 100px; */
+    border-color: white;
+    height: 100%;
+    width: 100%;
+
+}
 .title{
     color: white;
     font-size: xx-large;
+    border-color: greenyellow;
     font-family: 'Courier New', Courier, monospace;
 }
 
 .image{
     border: 100px;
     border-color: white;
-    height: 50%;
+    height: 100%;
     width: 30%;
 
 }

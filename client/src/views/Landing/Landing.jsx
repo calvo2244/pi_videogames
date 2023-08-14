@@ -9,24 +9,31 @@ const Landing = () => {
     const dispatch = useDispatch();
 
 
-    
 
-        useEffect(() => {
-            dispatch(createGenresBd())
-        }, [dispatch])
+
+    useEffect(() => {
+        dispatch(createGenresBd())
+    }, [dispatch])
 
 
     return (
         <form>
             <div className={styled.container}>
-                <div className={styled.title}>
-                    <h1> Video Games</h1>
+                <div className={styled.column}>
+                    <img className={styled.imagei} src={IconoInicio.playcontroller6} alt=""></img>
                 </div>
-                <img className={styled.image} src={IconoInicio.playcontroller3} alt=""></img>
-                <div >
-                    <Link to={"/home"}>
-                        <button className={styled.button} >Ingresar</button>
-                    </Link>
+                <div className={styled.column}>
+                    <div className={styled.title}>
+                        <h1> Video Games</h1>
+                    </div>
+                    <div>
+                        <img className={styled.image} src={IconoInicio.playcontroller3} alt=""></img>
+                    </div>
+                    <div >
+                        <Link to={"/home"}>
+                            <button className={styled.button} >Ingresar</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </form>

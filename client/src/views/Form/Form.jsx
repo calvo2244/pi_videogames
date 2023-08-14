@@ -54,7 +54,7 @@ const Form = () => {
         label: genre.name,
         name: "genre"
     }))
-    // console.log("genresState   ", optionGenre);
+    console.log("genresState   ", optionGenre);
 
 
     //asignar datos a el estado por cada input
@@ -178,6 +178,9 @@ const Form = () => {
                             value={inputData.image}
                             onChange={handleChange}
                         />
+                        <img className={styled.image_render} 
+                        src={inputData.image} 
+                        alt={"Default"}></img>
                         <span>{errors?.image && errors.image}</span>
                     </div>
                     <div className={styled.platforms}>

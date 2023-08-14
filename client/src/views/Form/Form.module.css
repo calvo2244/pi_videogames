@@ -67,6 +67,16 @@ input, textarea, select{
     color: red;
     font-weight: bold;
   }
+  .image_render{
+    object-fit:contain ;
+    height: 150px;
+    width: 150px;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px greenyellow;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+  }
 
   .selectReact{
     &__menu {
